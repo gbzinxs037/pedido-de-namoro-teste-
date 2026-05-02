@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Pedido ❤️</title>
+
+<style>
+
+body{
+background:black;
+color:white;
+font-family:Arial;
+text-align:center;
+margin:0;
+overflow:hidden;
+}
+
+section{
+display:none;
+height:100vh;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+padding:20px;
+}
+
+.active{
+display:flex;
+}
+
+.media{
+width:70%;
+max-height:400px;
+object-fit:cover;
+margin:20px;
+border-radius:10px;
+}
+
+button{
+padding:15px 25px;
+margin:10px;
+font-size:18px;
+cursor:pointer;
+border:none;
+border-radius:8px;
+}
+
+h1,h2{
+animation:fade 1.5s;
+}
+
+@keyframes fade{
+from{opacity:0; transform:translateY(20px);}
+to{opacity:1; transform:translateY(0);}
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- MUSICA -->
+<audio id="music" loop>
+<source src="midia/mp3.mp3" type="audio/mp3">
+</audio>
+
+<!-- TELA 1 -->
+<section id="tela1" class="active">
+<h1>SEJA BEM VINDA LAHH SANTOS ❤️</h1>
+<b>TIA LARISSA 😎</b>
+<h2>Tenho algo muito especial para você!</h2>
+<button onclick="start()">Começar</button>
+</section>
+
+<!-- GALERIA -->
+<section id="tela2">
+<h1>Nossas Memórias</h1>
+
+<div id="mediaBox"></div>
+
+<button onclick="prev()">Anterior</button>
+<button onclick="next()">Próximo</button>
+
+<button onclick="nextTela()">Continuar ❤️</button>
+</section>
+
+<!-- FRASES -->
+<section id="tela3">
+
+<h2>Depois de um bom tempo tomando coragem...</h2>
+<h2>Fiz isso especialmente para você ❤️</h2>
+<h2>Depois de tudo que passamos, estamos aqui novamente</h2>
+<h2>Desde o 1º ano do ensino médio você é especial pra mim</h2>
+<h2>espero q tenha gostado ate aqui✨</h2>
+
+<button onclick="nextTela()">Continuar</button>
+
+</section>
+
+<!-- PEDIDO -->
+<section id="tela4">
+
+<h1>Aceita namorar comigo? ❤️</h1>
+
+<button onclick="aceitou()">SIM ❤️</button>
+<button id="nao">NÃO 😅</button>
+
+</section>
+
+<!-- FINAL -->
+<section id="tela5">
+
+<h1>Agora oficialmente um casal ❤️</h1>
+
+<h2 style="width:70%;line-height:1.6">
+
+Te agradeço por cada momento ao meu lado durante todos esses anos.
+Cada conversa, cada risada e cada abraço fizeram tudo valer a pena.
+
+<br><br>
+
+Esse projeto foi feito com carinho, dedicação e sentimento.
+Talvez não seja perfeito, mas foi feito pensando em você.
+
+<br><br>
+
+Obrigado por existir na minha vida 🥰🤗
+
+</h2>
+
+</section>
+
+<script>
+
+// ---------- TELAS ----------
+const telas=["tela1","tela2","tela3","tela4","tela5"];
+let atual=0;
+
+function nextTela(){
+document.getElementById(telas[atual]).classList.remove("active");
+atual++;
+document.getElementById(telas[atual]).classList.add("active");
+}
+
+// ---------- START ----------
+function start(){
+
+let musica=document.getElementById("music");
+
+musica.volume=0.5;
+musica.play();
+
+initGallery();
+nextTela();
+}
+
+// ---------- GALERIA ----------
+const media=[
+"midia/foto.jpeg",
+"midia/01.mp4",
+"midia/02.mp4",
+"midia/03.mp4",
+"midia/05.mp4",
+"midia/07.mp4",
+"midia/08.mp4",
+"midia/v09.mp4"
+];
+
+let index=0;
+
+function initGallery(){
+showMedia();
+}
+
+function showMedia(){
+
+const box=document.getElementById("mediaBox");
+box.innerHTML="";
+
+let arquivo=media[index];
+
+if(arquivo.endsWith(".mp4")){
+
+let v=document.createElement("video");
+v.src=arquivo;
+v.controls=true;
+v.autoplay=true;
+v.className="media";
+box.appendChild(v);
+
+}else{
+
+let img=document.createElement("img");
+img.src=arquivo;
+img.className="media";
+box.appendChild(img);
+
+}
+
+}
+
+function next(){
+index++;
+if(index>=media.length) index=0;
+showMedia();
+}
+
+function prev(){
+index--;
+if(index<0) index=media.length-1;
+showMedia();
+}
+
+// ---------- BOTÃO NÃO FOGE ----------
+const nao=document.getElementById("nao");
+
+nao.onmouseover=()=>{
+nao.style.position="absolute";
+nao.style.left=Math.random()*80+"%";
+nao.style.top=Math.random()*80+"%";
+};
+
+// ---------- FINAL ----------
+function aceitou(){
+nextTela();
+}
+
+</script>
+
+</body>
+</html>
